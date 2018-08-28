@@ -82,6 +82,13 @@
       display: flex;
       align-items: center;
     }
+
+    .dj {
+      text-align: right;
+      align-self: flex-end;
+      color: #777777;
+      padding: 5px 15px;
+    }
   </style>
 </head>
 
@@ -103,6 +110,7 @@
       <span class="totalTime"></span>
     </div>
   </div>
+  <div class="dj"> DJ:</div>
 </body>
 
 <script>
@@ -128,7 +136,8 @@
       albumart: document.querySelector('.albumart'),
       time: document.querySelector('.timehead'),
       currentTime: document.querySelector('.currentTime'),
-      totalTime: document.querySelector('.totalTime')
+      totalTime: document.querySelector('.totalTime'),
+      dj: document.querySelector('.dj')
     }
 
     fetch("/track")
@@ -140,6 +149,7 @@
           e.artist.innerHTML = track.artist
           e.albumart.src = track.albumArtURL
           e.totalTime.innerHTML = secondsToTime(track.duration)
+          e.dj.innerHTML = "DJ: " + track.dj
         }
 
         e.time.style.width = String((track.position / track.duration) * 100) + "%"

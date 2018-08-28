@@ -8,10 +8,17 @@ const device = new Sonos(ip);
 
 app.get('/', (_, res) => res.sendFile(path.join(__dirname, 'index.html')))
 
-app.get('/track', (_, res) => {
-  device.currentTrack().then(t => {
-    res.json(t)
+app.get('/track', async (_, res) => {
+
+  const track = await device.currentTrack();
+  const dj = await device.getSpotifyConnectInfo()
+  console.log(dj);
+
+  res.json({
+    ...track,
+    dj: dj.activeUser
   })
+
 })
 
 app.listen(3000, () => console.log('listening on port 3000!'))

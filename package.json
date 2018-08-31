@@ -1,6 +1,10 @@
 {
   "dependencies": {
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
-    "sonos": "^1.4.1"
+    "node-fetch": "^2.2.0",
+    "request": "^2.88.0",
+    "sonos": "^1.4.1",
+    "spotify-web-api-node": "^3.1.1"
   }
 }

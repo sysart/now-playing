@@ -30,7 +30,8 @@
       padding: 30px;
       margin: 0;
       text-align: center;
-      background: #292929;
+      /* background: #292929; */
+      background: rgba(0, 0, 0, .5);
       color: #1ed760;
       font-size: 90px;
       text-transform: uppercase;
@@ -89,12 +90,32 @@
       color: #777777;
       padding: 5px 15px;
     }
+
+    .party {
+      -webkit-animation: PartyAnimation .6s infinite;
+      /* Safari 4+ */
+      -moz-animation: PartyAnimation .6s infinite;
+      /* Fx 5+ */
+      -o-animation: PartyAnimation .6s infinite;
+      /* Opera 12+ */
+      animation: PartyAnimation .6s infinite;
+      /* IE 10+, Fx 29+ */
+    }
+
+    @-webkit-keyframes PartyAnimation {
+      0% {
+        background-color: rgb(117, 209, 63);
+      }
+      100% {
+        background-color: #e50000;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <h1>
+  <h1 class="mainHeader">
     Now playing
   </h1>
 
@@ -138,7 +159,8 @@
       time: document.querySelector('.timehead'),
       currentTime: document.querySelector('.currentTime'),
       totalTime: document.querySelector('.totalTime'),
-      dj: document.querySelector('.dj')
+      dj: document.querySelector('.dj'),
+      mainHeader: document.querySelector('.mainHeader')
     }
 
     fetch("/track")
@@ -151,6 +173,17 @@
           e.albumart.src = track.albumArtURL
           e.totalTime.innerHTML = secondsToTime(track.duration)
           e.dj.innerHTML = "DJ: " + track.dj
+
+          // Friday
+          if (track.isFridaySong) {
+            e.mainHeader.innerHTML = `<img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" /> PARTY TIME
+    <img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" />`
+
+            document.body.classList.add("party")
+          } else {
+            e.mainHeader.innerHTML = "Now playing"
+            document.body.classList.remove("party")
+          }
         }
 
         e.time.style.width = String((track.position / track.duration) * 100) + "%"
@@ -161,6 +194,7 @@
   setInterval(() => {
     main();
   }, 1000)
+
 </script>
 
 </html>

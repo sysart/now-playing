@@ -27,17 +27,39 @@ app.get('/', (_, res) => res.sendFile(path.join(__dirname, 'index.html')))
 app.get('/track', async (_, res) => {
   getFridayList();
   const track = await device.currentTrack();
+  console.log(track)
   const dj = await device.getSpotifyConnectInfo()
 
-  const re = /:(.+)(?=\?)/
-  const spotifyUri = track.uri.match(re)
-  const isFridaySong = fridayList.includes(decodeURIComponent(spotifyUri[1]))
+  if(track.uri.includes('spotify')){
+    const re = /:(.+)(?=\?)/
+    const spotifyUri = track.uri.match(re)
+    const isFridaySong = fridayList.includes(decodeURIComponent(spotifyUri[1]))
 
-  res.json({
-    ...track,
-    dj: dj.activeUser,
-    isFridaySong
-  })
+    res.json({
+      ...track,
+      dj: dj.activeUser,
+      isFridaySong
+    })
+  }
+
+  if(track.uri.includes('Suomipop')){
+    res.json({
+      ...track,
+      title: "Radio Suomipop",
+      albumArtURL: "https://pbs.twimg.com/profile_images/908614679408386048/i9ALMCur_400x400.jpg",
+      dj: "",
+      isFridaySong: false,
+    })
+  } else {
+    res.json({
+      ...track,
+      dj: "....",
+      isFridaySong: false,
+    })
+  }
+
+
+
 })
 
 fetchToken = () => {

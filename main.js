@@ -5,6 +5,8 @@ const path = require("path")
 const request = require('request')
 const SpotifyWebApi = require('spotify-web-api-node')
 const app = express()
+var http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const ip = "192.168.172.240"
 const device = new Sonos(ip)
@@ -24,10 +26,10 @@ let fridayList = []
 
 app.get('/', (_, res) => res.sendFile(path.join(__dirname, 'index.html')))
 
-app.get('/track', async (_, res) => {
+const getTrack = async () => {
   getFridayList();
   const track = await device.currentTrack();
-  console.log(track)
+
   const dj = await device.getSpotifyConnectInfo()
 
   if(track.uri.includes('spotify')){
@@ -35,37 +37,37 @@ app.get('/track', async (_, res) => {
     const spotifyUri = track.uri.match(re)
     const isFridaySong = fridayList.includes(decodeURIComponent(spotifyUri[1]))
 
-    res.json({
+    return {
       ...track,
       dj: dj.activeUser,
       isFridaySong
-    })
+    }
   }
 
   if(track.uri.includes('Suomipop')){
-    res.json({
+    return {
       ...track,
       title: "Radio Suomipop",
       albumArtURL: "https://pbs.twimg.com/profile_images/908614679408386048/i9ALMCur_400x400.jpg",
       dj: "",
       isFridaySong: false,
-    })
+    }
   } else {
-    res.json({
+    return {
       ...track,
       dj: "....",
       isFridaySong: false,
-    })
+    }
   }
 
 
 
-})
+}
+
 
 fetchToken = () => {
   return new Promise((resolve, reject) => {
     try {
-      console.log("Fetch token")
       const authOptions = {
         url: 'https://accounts.spotify.com/api/token',
         headers: {
@@ -104,5 +106,17 @@ getFridayList = async() => {
   fridayList = list.body.tracks.items.map(t => t.track.uri)
 }
 
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
 
-app.listen(3000, () => console.log('listening on port 3000!'))
+
+setInterval(async () => {
+  const t = await getTrack()
+  io.emit('track-update', t);
+}, 1000)
+
+
+
+
+http.listen(3000, () => console.log('listening on port 3000!'))

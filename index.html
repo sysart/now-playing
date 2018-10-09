@@ -119,8 +119,26 @@
   </div>
   <div class="dj"> DJ:</div>
 </body>
+<script src="/socket.io/socket.io.js"></script>
 
 <script>
+  const e = {
+    track: document.querySelector('.track'),
+    artist: document.querySelector('.artist'),
+    albumart: document.querySelector('.albumart'),
+    time: document.querySelector('.timehead'),
+    currentTime: document.querySelector('.currentTime'),
+    totalTime: document.querySelector('.totalTime'),
+    dj: document.querySelector('.dj'),
+    mainHeader: document.querySelector('.mainHeader')
+  }
+
+  const socket = io();
+
+  socket.on('track-update', function (track) {
+    updateTrackData(e, track)
+  });
+
   function secondsToTime(s) {
     var sec_num = s // don't forget the second param
     var hours = Math.floor(sec_num / 3600);
@@ -136,49 +154,31 @@
   // ID for current track
   let currentUri = null
 
-  function main() {
-    const e = {
-      track: document.querySelector('.track'),
-      artist: document.querySelector('.artist'),
-      albumart: document.querySelector('.albumart'),
-      time: document.querySelector('.timehead'),
-      currentTime: document.querySelector('.currentTime'),
-      totalTime: document.querySelector('.totalTime'),
-      dj: document.querySelector('.dj'),
-      mainHeader: document.querySelector('.mainHeader')
-    }
+  function updateTrackData(e, track) {
+    currentUri = track.uri
+    e.track.innerHTML = track.title
+    e.artist.innerHTML = track.artist
+    e.albumart.src = track.albumArtURL
+    e.totalTime.innerHTML = secondsToTime(track.duration)
+    e.dj.innerHTML = "DJ: " + track.dj
 
-    fetch("/track")
-      .then(r => r.json())
-      .then(track => {
-        if (track.uri !== currentUri) {
-          currentUri = track.uri
-          e.track.innerHTML = track.title
-          e.artist.innerHTML = track.artist
-          e.albumart.src = track.albumArtURL
-          e.totalTime.innerHTML = secondsToTime(track.duration)
-          e.dj.innerHTML = "DJ: " + track.dj
-
-          // Friday
-          if (track.isFridaySong) {
-            e.mainHeader.innerHTML = `<img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" /> PARTY TIME
+    // Friday
+    if (track.isFridaySong) {
+      e.mainHeader.innerHTML = `<img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" /> PARTY TIME
     <img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" />`
 
-            document.body.classList.add("party")
-          } else {
-            e.mainHeader.innerHTML = "Now playing"
-            document.body.classList.remove("party")
-          }
-        }
+      document.body.classList.add("party")
+    } else {
+      e.mainHeader.innerHTML = "Now playing"
+      document.body.classList.remove("party")
+    }
 
-        e.time.style.width = String((track.position / track.duration) * 100) + "%"
-        e.currentTime.innerHTML = secondsToTime(track.position)
-      })
+
+    e.time.style.width = String((track.position / track.duration) * 100) + "%"
+    e.currentTime.innerHTML = secondsToTime(track.position)
   }
 
-  setInterval(() => {
-    main();
-  }, 1000)
+
 
 </script>
 

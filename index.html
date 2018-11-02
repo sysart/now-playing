@@ -155,22 +155,24 @@
   let currentUri = null
 
   function updateTrackData(e, track) {
-    currentUri = track.uri
-    e.track.innerHTML = track.title
-    e.artist.innerHTML = track.artist
-    e.albumart.src = track.albumArtURL
-    e.totalTime.innerHTML = secondsToTime(track.duration)
-    e.dj.innerHTML = "DJ: " + track.dj
+    if (currentUri !== track.uri) {
+      currentUri = track.uri
+      e.track.innerHTML = track.title
+      e.artist.innerHTML = track.artist
+      e.albumart.src = track.albumArtURL
+      e.totalTime.innerHTML = secondsToTime(track.duration)
+      e.dj.innerHTML = "DJ: " + track.dj
 
-    // Friday
-    if (track.isFridaySong) {
-      e.mainHeader.innerHTML = `<img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" /> PARTY TIME
-    <img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" />`
+      // Friday
+      if (track.isFridaySong) {
+        e.mainHeader.innerHTML = `<img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" /> PARTY TIME
+      <img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" />`
 
-      document.body.classList.add("party")
-    } else {
-      e.mainHeader.innerHTML = "Now playing"
-      document.body.classList.remove("party")
+        document.body.classList.add("party")
+      } else {
+        e.mainHeader.innerHTML = "Now playing"
+        document.body.classList.remove("party")
+      }
     }
 
 

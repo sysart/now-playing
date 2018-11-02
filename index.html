@@ -95,6 +95,10 @@
       background: rgb(224, 9, 189);
       background: linear-gradient(45deg, rgba(224, 9, 189, 1) 0%, rgba(0, 212, 255, 1) 100%);
     }
+
+    .parrot {
+      height: 60px;
+    }
   </style>
 </head>
 
@@ -154,6 +158,8 @@
   // ID for current track
   let currentUri = null
 
+  const parrot = `<img class="parrot" src="https://cultofthepartyparrot.com/parrots/parrot.gif" />`
+
   function updateTrackData(e, track) {
     if (currentUri !== track.uri) {
       currentUri = track.uri
@@ -165,8 +171,8 @@
 
       // Friday
       if (track.isFridaySong) {
-        e.mainHeader.innerHTML = `<img src="https://cultofthepartyparrot.com/parrots/parrot.gif" /> PARTY TIME
-      <img src="https://cultofthepartyparrot.com/parrots/parrot.gif" />`
+        e.mainHeader.innerHTML = `${parrot} PARTY TIME
+        ${parrot}`
 
         document.body.classList.add("party")
       } else {

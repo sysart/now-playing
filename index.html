@@ -1,297 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira+Mono"
+      rel="stylesheet"
+    />
+    <title>Musacorneri</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Fira Mono", monospace;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
-  <title>Musacorneri</title>
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Fira Mono', monospace;
-    }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        background: #333;
+        overflow: hidden;
+        /* cursor: none; */
+      }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100vh;
-      background: #333;
-      overflow: hidden;
-      /* cursor: none; */
-    }
+      h1 {
+        width: 100%;
+        padding: 30px;
+        margin: 0;
+        text-align: center;
+        /* background: #292929; */
+        background: rgba(0, 0, 0, 0.5);
+        color: #1ed760;
+        font-size: 90px;
+        text-transform: uppercase;
+      }
 
-    h1 {
-      width: 100%;
-      padding: 30px;
-      margin: 0;
-      text-align: center;
-      /* background: #292929; */
-      background: rgba(0, 0, 0, .5);
-      color: #1ed760;
-      font-size: 90px;
-      text-transform: uppercase;
-    }
+      .trackinfo {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
 
-    .trackinfo {
-      display: flex;
-      flex-direction: column;
-      width: 60%;
-      flex: 1;
-      justify-content: center;
-      align-items: center;
-      color: white
-    }
+      .artist {
+        margin-top: 20px;
+        font-size: 26px;
+      }
 
-    .artist {
-      margin-top: 20px;
-      font-size: 26px
-    }
+      .track {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
 
-    .track {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
+      .albumart {
+        height: 500px;
+        width: 500px;
+        border: 15px solid #292929;
+      }
 
-    .albumart {
-      height: 500px;
-      width: 500px;
-      border: 15px solid #292929;
-    }
+      .timebar {
+        width: 500px;
+        margin-left: 10px;
+        margin-right: 10px;
+        height: 10px;
+        background: #999;
+        border-radius: 5px;
+        overflow: hidden;
+      }
 
-    .timebar {
-      width: 500px;
-      margin-left: 10px;
-      margin-right: 10px;
-      height: 10px;
-      background: #999;
-      border-radius: 5px;
-      overflow: hidden;
-    }
+      .timehead {
+        width: 0%;
+        height: 10px;
+        background: #1ed760;
+      }
 
-    .timehead {
-      width: 0%;
-      height: 10px;
-      background: #1ed760;
-    }
+      .timeContainer {
+        display: flex;
+        align-items: center;
+      }
 
-    .timeContainer {
-      display: flex;
-      align-items: center;
-    }
+      .dj {
+        text-align: right;
+        align-self: flex-end;
+        color: #777777;
+        padding: 5px 15px;
+      }
 
-    .dj {
-      text-align: right;
-      align-self: flex-end;
-      color: #777777;
-      padding: 5px 15px;
-    }
+      .party {
+        background: rgb(224, 9, 189);
+        background: linear-gradient(
+          45deg,
+          rgba(224, 9, 189, 1) 0%,
+          rgba(0, 212, 255, 1) 100%
+        );
+      }
 
-    .party {
-      background: rgb(224, 9, 189);
-      background: linear-gradient(45deg, rgba(224, 9, 189, 1) 0%, rgba(0, 212, 255, 1) 100%);
-    }
+      .parrot {
+        height: 60px;
+      }
 
-    .parrot {
-      height: 60px;
-    }
+      .eqcontainer {
+        position: absolute;
+        top: 30%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        opacity: 0.6;
+      }
 
-    .eqcontainer {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: -1;
-      opacity: .6;
-    }
+      svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+      }
 
-    svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      position: absolute;
+      path {
+        stroke-linecap: square;
+        stroke: white;
+        stroke-width: 0.5px;
+      }
+    </style>
+  </head>
 
-    }
+  <body>
+    <h1 class="mainHeader">Now playing</h1>
 
-    path {
-      stroke-linecap: square;
-      stroke: white;
-      stroke-width: 0.5px;
-    }
-  </style>
-</head>
+    <div class="trackinfo">
+      <img class="albumart" src="" alt="" />
+      <div class="artist"></div>
+      <div class="track"></div>
 
-<body>
-
-  <h1 class="mainHeader">
-    Now playing
-  </h1>
-
-  <div class="trackinfo">
-    <img class="albumart" src="" alt="">
-    <div class="artist"></div>
-    <div class="track"></div>
-
-    <div class="timeContainer">
-      <span class="currentTime"></span>
-      <div class="timebar">
-        <div class="timehead"></div>
+      <div class="timeContainer">
+        <span class="currentTime"></span>
+        <div class="timebar"><div class="timehead"></div></div>
+        <span class="totalTime"></span>
       </div>
-      <span class="totalTime"></span>
     </div>
-  </div>
-  <div class="dj"> DJ:</div>
-  <div class="eqcontainer">
+    <div class="dj">DJ:</div>
+    <div class="eqcontainer">
+      <svg
+        preserveAspectRatio="none"
+        id="visualizer"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <defs>
+          <mask id="mask"><g id="maskGroup"></g></mask>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#ff0a0a;stop-opacity:1" />
+            <stop offset="20%" style="stop-color:#f1ff0a;stop-opacity:1" />
+            <stop offset="90%" style="stop-color:#d923b9;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#050d61;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <rect
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          fill="url(#gradient)"
+          mask="url(#mask)"
+        ></rect>
+      </svg>
+    </div>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
 
-    <svg preserveAspectRatio="none" id="visualizer" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <defs>
+  <script>
+    const e = {
+      track: document.querySelector(".track"),
+      artist: document.querySelector(".artist"),
+      albumart: document.querySelector(".albumart"),
+      time: document.querySelector(".timehead"),
+      currentTime: document.querySelector(".currentTime"),
+      totalTime: document.querySelector(".totalTime"),
+      dj: document.querySelector(".dj"),
+      mainHeader: document.querySelector(".mainHeader")
+    };
 
-        <mask id="mask">
-          <g id="maskGroup">
-          </g>
-        </mask>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:#ff0a0a;stop-opacity:1" />
-          <stop offset="20%" style="stop-color:#f1ff0a;stop-opacity:1" />
-          <stop offset="90%" style="stop-color:#d923b9;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#050d61;stop-opacity:1" />
-        </linearGradient>
-      </defs>
-      <rect x="0" y="0" width="100%" height="100%" fill="url(#gradient)" mask="url(#mask)"></rect>
-    </svg>
-  </div>
-</body>
-<script src="/socket.io/socket.io.js"></script>
+    const socket = io();
 
-<script>
-  const e = {
-    track: document.querySelector('.track'),
-    artist: document.querySelector('.artist'),
-    albumart: document.querySelector('.albumart'),
-    time: document.querySelector('.timehead'),
-    currentTime: document.querySelector('.currentTime'),
-    totalTime: document.querySelector('.totalTime'),
-    dj: document.querySelector('.dj'),
-    mainHeader: document.querySelector('.mainHeader')
-  }
+    socket.on("track-update", function(track) {
+      updateTrackData(e, track);
+    });
 
-  const socket = io();
+    function secondsToTime(s) {
+      var sec_num = s; // don't forget the second param
+      var hours = Math.floor(sec_num / 3600);
+      var minutes = Math.floor((sec_num - hours * 3600) / 60);
+      var seconds = sec_num - hours * 3600 - minutes * 60;
 
-  socket.on('track-update', function (track) {
-    updateTrackData(e, track)
-  });
-
-  function secondsToTime(s) {
-    var sec_num = s // don't forget the second param
-    var hours = Math.floor(sec_num / 3600);
-    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-    if (hours < 10) { hours = "0" + hours; }
-    if (minutes < 10) { minutes = "0" + minutes; }
-    if (seconds < 10) { seconds = "0" + seconds; }
-    return minutes + ':' + seconds;
-  }
-
-  // ID for current track
-  let currentUri = null
-
-  const parrot = `<img class="parrot" src="https://cultofthepartyparrot.com/parrots/parrot.gif" />`
-
-  function updateTrackData(e, track) {
-    if (currentUri !== track.uri) {
-      currentUri = track.uri
-      e.track.innerHTML = track.title
-      e.artist.innerHTML = track.artist
-      e.albumart.src = track.albumArtURL
-      e.totalTime.innerHTML = secondsToTime(track.duration)
-      e.dj.innerHTML = "DJ: " + track.dj
-
-      // Friday
-      if (track.isFridaySong) {
-        e.mainHeader.innerHTML = `${parrot} PARTY TIME
-        ${parrot}`
-
-        document.body.classList.add("party")
-      } else {
-        e.mainHeader.innerHTML = "Now playing"
-        document.body.classList.remove("party")
+      if (hours < 10) {
+        hours = "0" + hours;
       }
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      }
+      return minutes + ":" + seconds;
     }
 
+    // ID for current track
+    let currentUri = null;
+    let currentTitle = null;
 
-    e.time.style.width = String((track.position / track.duration) * 100) + "%"
-    e.currentTime.innerHTML = secondsToTime(track.position)
-  }
+    const parrot = `<img class="parrot" src="https://cultofthepartyparrot.com/parrots/parrot.gif" />`;
 
+    function updateTrackData(e, track) {
+      if (currentUri !== track.uri || currentTitle !== track.title) {
+        currentUri = track.uri;
+        currentTitle = track.title;
+        e.track.innerHTML = track.title;
+        e.artist.innerHTML = track.artist;
+        e.albumart.src = track.albumArtURL;
+        e.totalTime.innerHTML = secondsToTime(track.duration);
+        e.dj.innerHTML = "DJ: " + track.dj;
 
+        // Friday
+        if (track.isFridaySong) {
+          e.mainHeader.innerHTML = `${parrot} PARTY TIME
+                                    ${parrot}`;
 
-  window.onload = function () {
-    "use strict";
-    var paths = document.getElementsByTagName('path');
-    var visualizer = document.getElementById('visualizer');
-    var mask = visualizer.getElementById('mask');
-    var h = document.getElementsByTagName('h1')[0];
-    var path;
-    var report = 0;
-
-    var soundAllowed = function (stream) {
-      //Audio stops listening in FF without // window.persistAudioStream = stream;
-      //https://bugzilla.mozilla.org/show_bug.cgi?id=965483
-      //https://support.mozilla.org/en-US/questions/984179
-      window.persistAudioStream = stream;
-
-      var audioContent = new AudioContext();
-      var audioStream = audioContent.createMediaStreamSource(stream);
-      var analyser = audioContent.createAnalyser();
-      audioStream.connect(analyser);
-      analyser.fftSize = 1024;
-
-      var frequencyArray = new Uint8Array(analyser.frequencyBinCount);
-      visualizer.setAttribute('viewBox', '0 0 255 255');
-
-      //Through the frequencyArray has a length longer than 255, there seems to be no
-      //significant data after this point. Not worth visualizing.
-      for (var i = 0; i < 255; i++) {
-        path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('stroke-dasharray', '4,1');
-        mask.appendChild(path);
-      }
-      var doDraw = function () {
-        requestAnimationFrame(doDraw);
-        analyser.getByteFrequencyData(frequencyArray);
-        var adjustedLength;
-        for (var i = 0; i < 255; i++) {
-          adjustedLength = Math.floor(frequencyArray[i]) - (Math.floor(frequencyArray[i]) % 5);
-          paths[i].setAttribute('d', 'M ' + (i) + ',255 l 0,-' + adjustedLength);
+          document.body.classList.add("party");
+        } else {
+          e.mainHeader.innerHTML = "Now playing";
+          document.body.classList.remove("party");
         }
-
       }
-      doDraw();
+
+      e.time.style.width =
+        String((track.position / track.duration) * 100) + "%";
+      e.currentTime.innerHTML = secondsToTime(track.position);
     }
 
-    var soundNotAllowed = function (error) {
-      h.innerHTML = "You must allow your microphone.";
-      console.log(error);
-    }
+    window.onload = function() {
+      "use strict";
+      var paths = document.getElementsByTagName("path");
+      var visualizer = document.getElementById("visualizer");
+      var mask = visualizer.getElementById("mask");
+      var h = document.getElementsByTagName("h1")[0];
+      var path;
+      var report = 0;
 
-    /*window.navigator = window.navigator || {};
-    /*navigator.getUserMedia =  navigator.getUserMedia       ||
-                              navigator.webkitGetUserMedia ||
-                              navigator.mozGetUserMedia    ||
-                              null;*/
-    navigator.getUserMedia({ audio: true }, soundAllowed, soundNotAllowed);
+      var soundAllowed = function(stream) {
+        console.log("Sound");
+        //Audio stops listening in FF without // window.persistAudioStream = stream;
+        //https://bugzilla.mozilla.org/show_bug.cgi?id=965483
+        //https://support.mozilla.org/en-US/questions/984179
+        window.persistAudioStream = stream;
 
-  };
+        var audioContent = new AudioContext();
+        var audioStream = audioContent.createMediaStreamSource(stream);
+        var analyser = audioContent.createAnalyser();
+        audioStream.connect(analyser);
+        analyser.fftSize = 1024;
 
+        var frequencyArray = new Uint8Array(analyser.frequencyBinCount);
+        visualizer.setAttribute("viewBox", "0 0 255 255");
 
-</script>
+        //Through the frequencyArray has a length longer than 255, there seems to be no
+        //significant data after this point. Not worth visualizing.
+        for (var i = 0; i < 255; i++) {
+          path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("stroke-dasharray", "4,1");
+          mask.appendChild(path);
+        }
+        var doDraw = function() {
+          requestAnimationFrame(doDraw);
 
+          analyser.getByteFrequencyData(frequencyArray);
+          console.log("Do draw", frequencyArray);
+          var adjustedLength;
+          for (var i = 0; i < 255; i++) {
+            adjustedLength =
+              Math.floor(frequencyArray[i]) -
+              (Math.floor(frequencyArray[i]) % 5);
+            paths[i].setAttribute(
+              "d",
+              "M " + i + ",255 l 0,-" + adjustedLength
+            );
+          }
+        };
+        doDraw();
+      };
+
+      var soundNotAllowed = function(error) {
+        h.innerHTML = "You must allow your microphone.";
+        console.log(error);
+      };
+
+      // navigator.getUserMedia({ audio: true }, soundAllowed, soundNotAllowed);
+    };
+  </script>
 </html>

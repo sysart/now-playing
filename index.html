@@ -42,7 +42,7 @@
       .trackinfo {
         display: flex;
         flex-direction: column;
-        width: 60%;
+        width: 100%;
         flex: 1;
         justify-content: center;
         align-items: center;
@@ -130,6 +130,18 @@
         stroke: white;
         stroke-width: 0.5px;
       }
+
+      .bgBlurri {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+        opacity: 0.1;
+        border: none;
+      }
     </style>
   </head>
 
@@ -146,8 +158,10 @@
         <div class="timebar"><div class="timehead"></div></div>
         <span class="totalTime"></span>
       </div>
+      <img class="albumart bgBlurri" src="" alt="" />
     </div>
     <div class="dj">DJ:</div>
+    <!-- EQ no work with raspberry... -->
     <div class="eqcontainer">
       <svg
         preserveAspectRatio="none"
@@ -182,7 +196,7 @@
     const e = {
       track: document.querySelector(".track"),
       artist: document.querySelector(".artist"),
-      albumart: document.querySelector(".albumart"),
+      albumart: document.querySelectorAll(".albumart"),
       time: document.querySelector(".timehead"),
       currentTime: document.querySelector(".currentTime"),
       totalTime: document.querySelector(".totalTime"),
@@ -226,14 +240,16 @@
         currentTitle = track.title;
         e.track.innerHTML = track.title;
         e.artist.innerHTML = track.artist;
-        e.albumart.src = track.albumArtURL;
+        e.albumart.forEach(x => {
+          x.src = track.albumArtURL;
+        });
         e.totalTime.innerHTML = secondsToTime(track.duration);
         e.dj.innerHTML = "DJ: " + track.dj;
 
         // Friday
         if (track.isFridaySong) {
           e.mainHeader.innerHTML = `${parrot} PARTY TIME
-                                                ${parrot}`;
+                                                                                    ${parrot}`;
 
           document.body.classList.add("party");
         } else {
@@ -303,7 +319,7 @@
         console.log(error);
       };
 
-      navigator.getUserMedia({ audio: true }, soundAllowed, soundNotAllowed);
+      // navigator.getUserMedia({ audio: true }, soundAllowed, soundNotAllowed);
     };
   </script>
 </html>

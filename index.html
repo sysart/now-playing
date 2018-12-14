@@ -233,7 +233,7 @@
         // Friday
         if (track.isFridaySong) {
           e.mainHeader.innerHTML = `${parrot} PARTY TIME
-                                        ${parrot}`;
+                                                ${parrot}`;
 
           document.body.classList.add("party");
         } else {
@@ -283,7 +283,7 @@
           requestAnimationFrame(doDraw);
 
           analyser.getByteFrequencyData(frequencyArray);
-          console.log("Do draw", frequencyArray);
+          // console.log("Do draw", frequencyArray);
           var adjustedLength;
           for (var i = 0; i < 255; i++) {
             adjustedLength =
@@ -303,7 +303,7 @@
         console.log(error);
       };
 
-      // navigator.getUserMedia({ audio: true }, soundAllowed, soundNotAllowed);
+      navigator.getUserMedia({ audio: true }, soundAllowed, soundNotAllowed);
     };
   </script>
 </html>

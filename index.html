@@ -133,7 +133,7 @@
 
       .bgBlurri {
         position: absolute;
-        top: 0;
+        top: -480px;
         bottom: 0;
         left: 0;
         right: 0;
@@ -141,7 +141,7 @@
         height: auto;
         opacity: 0.9;
         border: none;
-        filter: blur(40px);
+        filter: blur(20px);
         z-index: 0;
       }
 
@@ -161,8 +161,6 @@
 
   <body>
     <div class="c">
-      <h1 class="mainHeader">Nyt soi</h1>
-
       <div class="trackinfo">
         <img class="albumart" src="" alt="" />
         <div class="artist"></div>
@@ -264,12 +262,9 @@
 
         // Friday
         if (track.isFridaySong) {
-          e.mainHeader.innerHTML = `${parrot} PARTY TIME
-                                                                                                                                                            ${parrot}`;
-
           document.body.classList.add("party");
         } else {
-          e.mainHeader.innerHTML = "Nyt soi";
+          // e.mainHeader.innerHTML = "Nyt soi";
           document.body.classList.remove("party");
         }
       }

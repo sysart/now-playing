@@ -22,7 +22,7 @@
         flex-direction: column;
         align-items: center;
         height: 100vh;
-        background: #333;
+
         overflow: hidden;
         cursor: none;
       }
@@ -139,28 +139,43 @@
         right: 0;
         width: 100%;
         height: auto;
-        opacity: 0.1;
+        opacity: 0.9;
         border: none;
+        filter: blur(40px);
+        z-index: 0;
+      }
+
+      .c {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        display: flex;
+        flex-direction: column;
       }
     </style>
   </head>
 
   <body>
-    <h1 class="mainHeader">Now playing</h1>
+    <div class="c">
+      <h1 class="mainHeader">Nyt soi</h1>
 
-    <div class="trackinfo">
-      <img class="albumart" src="" alt="" />
-      <div class="artist"></div>
-      <div class="track"></div>
+      <div class="trackinfo">
+        <img class="albumart" src="" alt="" />
+        <div class="artist"></div>
+        <div class="track"></div>
 
-      <div class="timeContainer">
-        <span class="currentTime"></span>
-        <div class="timebar"><div class="timehead"></div></div>
-        <span class="totalTime"></span>
+        <div class="timeContainer">
+          <span class="currentTime"></span>
+          <div class="timebar"><div class="timehead"></div></div>
+          <span class="totalTime"></span>
+        </div>
       </div>
-      <img class="albumart bgBlurri" src="" alt="" />
+      <div class="dj">DJ:</div>
     </div>
-    <div class="dj">DJ:</div>
     <!-- EQ no work with raspberry... -->
     <div class="eqcontainer">
       <svg
@@ -189,6 +204,7 @@
         ></rect>
       </svg>
     </div>
+    <img class="albumart bgBlurri" src="" alt="" />
   </body>
   <script src="/socket.io/socket.io.js"></script>
 
@@ -249,11 +265,11 @@
         // Friday
         if (track.isFridaySong) {
           e.mainHeader.innerHTML = `${parrot} PARTY TIME
-                                                                                    ${parrot}`;
+                                                                                                                                                        ${parrot}`;
 
           document.body.classList.add("party");
         } else {
-          e.mainHeader.innerHTML = "Now playing";
+          e.mainHeader.innerHTML = "Nyt soi";
           document.body.classList.remove("party");
         }
       }

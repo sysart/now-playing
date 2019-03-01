@@ -168,12 +168,23 @@
           align-items: center;
           padding: 20px;
       }
-            }
+
+      .beercontainer {
+        color: white;
+    font-size: 40px;
+    padding-top: 20px;
+    text-align: center;
+}
+      
+            
     </style>
   </head>
 
   <body>
     <div class="c">
+      <div class="beercontainer">
+        🍺 <span id="beertemp" />
+      </div>
       <div class="trackinfo">
         <img class="albumart" src="" alt="" />
         <div class="juttu">
@@ -230,8 +241,24 @@
       currentTime: document.querySelector(".currentTime"),
       totalTime: document.querySelector(".totalTime"),
       dj: document.querySelector(".dj"),
-      mainHeader: document.querySelector(".mainHeader")
+      mainHeader: document.querySelector(".mainHeader"),
+      beertemp: document.querySelector("#beertemp")
     };
+
+    async function getBeerTemp(){
+      const res = await fetch("https://zclvxxpogl.execute-api.eu-west-1.amazonaws.com/dev/isbeercold");
+     const json = await res.json();
+
+      e.beertemp.innerHTML = json.values[json.values.length -1] + " °C"
+
+     json.values[json.values.length - 1]
+     
+    }
+
+    getBeerTemp();
+    setInterval(async () => {
+      getBeerTemp();
+    }, 1000 * 60)
 
     const socket = io();
 

@@ -8,7 +8,7 @@ const app = express()
 var http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const ip = "192.168.172.240"
+const ip = "192.168.172.183"
 const device = new Sonos(ip)
 
 const clientId = process.env.clientId

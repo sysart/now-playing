@@ -113,7 +113,7 @@
               left: 0;
               right: 0;
               z-index: -1;
-              opacity: 0.6;
+              opacity: .7;
             }
 
             svg {
@@ -183,7 +183,7 @@
   <body>
     <div class="c">
       <div class="beercontainer">
-        🍺 <span id="beertemp" />
+        Kaljat ~<span id="beertemp" />
       </div>
       <div class="trackinfo">
         <img class="albumart" src="" alt="" />
@@ -371,8 +371,12 @@
         h.innerHTML = "You must allow your microphone.";
         console.log(error);
       };
+      navigator.getUserMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
 
-      // navigator.getUserMedia({ audio: true }, soundAllowed, soundNotAllowed);
+       navigator.getUserMedia({ audio: true }, soundAllowed, soundNotAllowed);
     };
   </script>
 </html>

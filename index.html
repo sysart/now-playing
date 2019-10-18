@@ -264,18 +264,20 @@
 
 
 
-    socket.on("show-image", function(image){
+    socket.on("show-image", function({image, text}){
       if(!image) return;
+
+      console.log("got image", {image, text});
       
       const ifrm  = document.createElement("iframe");
       ifrm.setAttribute("src", image);
       ifrm.setAttribute("id", "giphy");
 
-      const dim = Math.min(window.innerHeight, window.innerWidth) - 30;
+      const dim = Math.min(window.innerHeight, window.innerWidth) - 200;
 
       ifrm.style.width = `${dim}px`;
       ifrm.style.height = `${dim}px`;
-      // ifrm.style.pointerEvents = "none";
+      
 
       ifrm.style.zIndex = 100
       ifrm.style.border = "none";
@@ -286,11 +288,25 @@
       ifrm.style.left = 0
       ifrm.style.right = 0
 
+      
+      const gText = document.createElement("div");
+      gText.setAttribute("id", "gText");
+      gText.innerText = text;
+      gText.style.color = "white";
+      gText.style.position = "absolute";
+      gText.style.background = "black";
+      gText.style.fontSize = "100px";
+      gText.style.zIndex = 100;
+      gText.style.padding = "40px"
+
+    
+      document.body.appendChild(gText)
       document.body.appendChild(ifrm)
 
       setTimeout(() => {
         
         document.body.removeChild(document.getElementById("giphy"))
+        document.body.removeChild(document.getElementById("gText"))
       }, 10000)
       
     })

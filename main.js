@@ -17,7 +17,7 @@ app.get("/giphy/", async (req, res) => {
 
   const image = await getImage(str);
 
-  io.emit("show-image", image);
+  io.emit("show-image", { image, text: str });
 
   res.send(`sent ${str} -> ${image}`);
 });

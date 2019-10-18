@@ -10,6 +10,18 @@ const ip = process.env.SONOS_IP;
 console.log("Use sonos IP ", ip);
 const device = new Sonos(ip);
 
+const getImage = require("./getImage");
+
+app.get("/giphy/", async (req, res) => {
+  const str = req.query.s;
+
+  const image = await getImage(str);
+
+  io.emit("show-image", image);
+
+  res.send(`sent ${str} -> ${image}`);
+});
+
 app.get("/", (_, res) => res.sendFile(path.join(__dirname, "index.html")));
 
 const getTrack = async () => {

@@ -186,7 +186,7 @@
         Kaljat ~<span id="beertemp" />
       </div>
       <div class="trackinfo">
-        <img class="albumart" src="" alt="" />
+        <img class="albumart" src="https://giphy.com/embed/5nsiFjdgylfK3csZ5T" alt="" />
         <div class="juttu">
           <div class="artist"></div>
           <div class="track"></div>
@@ -262,8 +262,43 @@
 
     const socket = io();
 
+
+
+    socket.on("show-image", function(image){
+      if(!image) return;
+      
+      const ifrm  = document.createElement("iframe");
+      ifrm.setAttribute("src", image);
+      ifrm.setAttribute("id", "giphy");
+
+      const dim = Math.min(window.innerHeight, window.innerWidth) - 30;
+
+      ifrm.style.width = `${dim}px`;
+      ifrm.style.height = `${dim}px`;
+      // ifrm.style.pointerEvents = "none";
+
+      ifrm.style.zIndex = 100
+      ifrm.style.border = "none";
+      ifrm.style.margin = "auto"
+    
+      ifrm.style.bottom = 0
+      ifrm.style.top = 0
+      ifrm.style.left = 0
+      ifrm.style.right = 0
+      
+      document.body.appendChild(ifrm)
+
+      setTimeout(() => {
+        
+        document.body.removeChild(document.getElementById("giphy"))
+      }, 10000)
+      
+    })
+
+    
+
     socket.on("track-update", function(track) {
-      updateTrackData(e, track);
+       updateTrackData(e, track);
     });
 
     function secondsToTime(s) {

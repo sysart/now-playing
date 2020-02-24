@@ -22,13 +22,13 @@ app.get("/giphy/", async (req, res) => {
   res.send(`sent ${str} -> ${image}`);
 });
 
-app.get("/", (_, res) => res.sendFile(path.join(__dirname, "index.html")));
+app.use("/", express.static("public"));
 
 const getTrack = async () => {
   try {
     const track = await device.currentTrack();
 
-    if (track.uri.includes("spotify")) {
+    if (track.uri && track.uri.includes("spotify")) {
       return {
         ...track,
         dj: " Null ",

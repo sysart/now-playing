@@ -174,8 +174,6 @@
     const parrot = `<img class="parrot" src="https://cultofthepartyparrot.com/parrots/parrot.gif" />`;
 
     function updateTrackData(e, track) {
-      console.log("track", track);
-
       if (track.airplay && track.airplay === "Kirill") {
         e.trackinfo.style.display = "none";
         e.albumart.forEach(x => {

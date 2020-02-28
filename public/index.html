@@ -16,6 +16,12 @@
     <div class="c">
       <div class="beercontainer">Kaljat ~<span id="beertemp" /></div>
       <div class="silence" style="display: none;">🙉</div>
+      <div class="airplay">
+        <div class="airplay-image">
+          <img src="dwi.png" id="glass" />
+          <img id="airplay" src="kirill.png" />
+        </div>
+      </div>
       <div class="trackinfo">
         <img
           class="albumart"
@@ -168,7 +174,18 @@
     const parrot = `<img class="parrot" src="https://cultofthepartyparrot.com/parrots/parrot.gif" />`;
 
     function updateTrackData(e, track) {
-      if (track.position === null && track.duration === null) {
+      console.log("track", track);
+
+      if (track.airplay && track.airplay === "Kirill") {
+        e.trackinfo.style.display = "none";
+        e.albumart.forEach(x => {
+          x.src = "/jungle.jpg";
+        });
+      } else if (
+        track.position === null &&
+        track.duration === null &&
+        !track.airplay
+      ) {
         // Undefined track!
 
         e.trackinfo.style.display = "none";

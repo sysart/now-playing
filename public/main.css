@@ -5,6 +5,44 @@ body {
   font-family: "Fira Mono", monospace;
 }
 
+#glass {
+  position: absolute;
+  width: 300px;
+  margin-left: -20px;
+  top: 130px;
+  animation: Glass-drop;
+  animation-duration: 2s;
+
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  /* animation-timing-function: linear; */
+}
+
+@keyframes Glass-drop {
+  from {
+    transform: translateY(-200px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.airplay-image {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+}
+
+.airplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
 body {
   display: flex;
   flex-direction: column;

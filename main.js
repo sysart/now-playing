@@ -14,11 +14,9 @@ const getImage = require("./getImage");
 
 app.get("/giphy/", async (req, res) => {
   const str = req.query.s;
-
   const image = await getImage(str);
 
   io.emit("show-image", { image, text: str });
-
   res.send(`sent ${str} -> ${image}`);
 });
 
@@ -33,6 +31,16 @@ const getTrack = async () => {
         ...track,
         dj: " Null ",
         isFridaySong: false
+      };
+    }
+
+    // "x-sonos-vli:RINCON_949F3E50938801400:1,airplay:d9d8916f85d85c6408e4fc55a78af190"
+    if (track.uri && track.uri.includes("airplay")) {
+      return {
+        ...track,
+        dj: " Null ",
+        isFridaySong: false,
+        airplay: "Kirill"
       };
     }
 

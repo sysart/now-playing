@@ -11,18 +11,22 @@ body {
   margin-left: -20px;
   top: 130px;
   animation: Glass-drop;
-  animation-duration: 2s;
+  animation-duration: 4s;
 
   animation-iteration-count: infinite;
   animation-direction: normal;
+
   /* animation-timing-function: linear; */
 }
 
 @keyframes Glass-drop {
-  from {
+  0% {
     transform: translateY(-200px);
   }
-  to {
+  30% {
+    transform: translateY(0);
+  }
+  100% {
     transform: translateY(0);
   }
 }
@@ -38,7 +42,7 @@ body {
 .airplay {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   position: relative;
   height: 100%;
 }
